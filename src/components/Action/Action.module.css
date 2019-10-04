@@ -1,0 +1,12 @@
+ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 auto;
+    height: 100%;
+}
+ul>*{
+    padding: 0 0.5em;
+    margin: 0 0.2em; 
+    cursor: pointer;
+}

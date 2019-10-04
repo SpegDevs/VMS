@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: white;
 }
 
 code {
@@ -22,6 +23,6 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: red; 
+  background: #b3b3b3; 
   border-radius: 10px;
 }
