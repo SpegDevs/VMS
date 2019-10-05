@@ -1,40 +1,96 @@
 import React from "react";
-import {DropTarget} from "react-dnd"
+import { useDrop } from "react-dnd";
+import { Modal } from "reactstrap";
 
-const boxSource = {
-    beginDrop(props){
-        const item = {id:props.id}
-        return item;
-    },
-    endDrag(props, monitor, component) {
-        if (!monitor.didDrop()) {
-          return
-        }
-        const item = monitor.getItem()
-        const dropResult = monitor.getDropResult()
-        console.log(item.id);
-    },
-}
+import ItemTypes from "../../utils/ItemTypes";
+import style from "./Workspace.module.css";
+import ComponentType from "../../utils/ComponentType";
+import { IfModal } from "../Modals/Modal";
 
-function collect(connect, monitor) {
-    return {
-      connectDragSource: connect.dragSource(),
-      isDragging: monitor.isDragging(),
+const WorkspacePane = props => {
+  const [_, drop] = useDrop({
+    accept: ItemTypes.COMPONENT,
+    drop: item => {
+      props.handler(item.id);
+    }
+  });
+  return (
+    <div ref={drop} className={style.workspace}>
+      {props.text}
+    </div>
+  );
+};
+
+const initialState = {
+  text: "",
+  isIfOpen: false,
+  vairables: ["x", "y"],
+  condition: [">", "<", ">=", "<=", "==", "!"]
+};
+
+class Workspace extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { ...initialState };
+    this.toggleModals = this.toggleModals.bind(this);
+    this.pushToCode = this.pushToCode.bind(this);
+    this.pushToCode = this.pushIf.bind(this);
+  }
+
+  toggleModals(type, condition = "") {
+    switch (type) {
+      case ComponentType.IF:
+        this.setState({
+          ...this.state,
+          isIfOpen: !this.state.isIfOpen
+        });
+        break;
+      case ComponentType.ITERATION:
+        this.setState({
+          ...this.state,
+          isIfOpen: !this.state.isIfOpen
+        });
+        break;
     }
   }
 
-class Workspace extends React.Component{
+  pushIf() {
+    this.setState({
+      ...this.state,
+      isIfOpen: true
+    });
+  }
 
-    constructor(props){
-        super(props);
+  pushToCode(id) {
+    switch (id) {
+      case ComponentType.IF:
+        break;
+      case ComponentType.DECLARE:
+        break;
+      case ComponentType.ASIGN:
+        break;
+      case ComponentType.ITERATION:
+        break;
+      case ComponentType.INPUT:
+        break;
+      case ComponentType.OUTPUT:
+        break;
     }
+  }
 
-    render(){
-        console.log(this.props.children);
-        return <>{this.props.children}</>;
-    }
-
+  render() {
+    return (
+      <>
+        <IfModal
+          isOpen={this.state.isIfOpen}
+          toggle={this.toggleModals}
+          variables={this.state.vairables}
+          conditions={this.state.condition}
+        />
+        <WorkspacePane handler={this.pushToCode} text={this.state.text} />
+      </>
+    );
+  }
 }
 
-export default DropTarget('box' ,boxSource, collect)(Workspace);
-
+export default Workspace;

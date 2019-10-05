@@ -1,0 +1,8 @@
+export default {
+  IF: "IF",
+  DECLARE: "DECLARE",
+  ASIGN: "ASIGN",
+  ITERATION: "ITERATION",
+  INPUT: "INPUT",
+  OUTPUT: "OUTPUT"
+};

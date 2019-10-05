@@ -1,0 +1,10 @@
+.sucess {
+  background-color: #1e9ba0;
+}
+
+.ifBody {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
