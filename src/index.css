@@ -1,3 +1,9 @@
+:root {
+  --primary: #393e46;
+  --primary-dark: #222831;
+  --accent: #1e9ba0;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -13,6 +19,35 @@ code {
     monospace;
 }
 
+.modal-body {
+  background-color: var(--primary);
+}
+
+.form-control {
+  background-color: #393e46;
+  color: white;
+  border: 1px var(--primary-dark) solid;
+  border-radius: .25rem;
+}
+
+.form-control:focus {
+  background-color: var(--primary);
+  color: white;
+  border: 1px var(--primary-dark) solid;
+  border-radius: .25rem;
+}
+
+.modal-content {
+  background-color: black;
+}
+
+.modal-footer {
+  background-color: #222831;
+  border-top: 1px solid var(--primary);
+  border-bottom-right-radius: .3rem;
+  border-bottom-left-radius: .3rem;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -23,6 +58,6 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #b3b3b3; 
+  background: #b3b3b3;
   border-radius: 10px;
 }

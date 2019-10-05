@@ -3,34 +3,30 @@ main {
   grid-template-columns: 15% 85%;
 }
 
-.sidebar{
-  background-color: #222831;
+.sidebar {
+  background-color: var(--primary-dark);
   min-height: 100vh;
   max-height: 100vh;
   display: grid;
   grid-template-rows: 5% 95%;
 }
 
-.logo{
+.logo {}
 
-}
-
-.tools{
+.tools {
   overflow-y: scroll;
 }
 
-.env{
-  background-color: #393e46;
+.env {
+  background-color: var(--primary);
   display: grid;
   grid-template-rows: 5% 95%;
   min-height: 100vh;
   max-height: 100vh;
 }
 
-.actions{
-  background-color: #1e9ba0;
+.actions {
+  background-color: var(--accent);
 }
 
-.workspace{
-
-}
+.workspace {}
