@@ -10,7 +10,9 @@ export const Ide = () => {
     <>
       <main>
         <div className={styles.sidebar}>
-          <div className={styles.logo}></div>
+          <div className={styles.logo}>
+            <img src="vms.png" alt="VMS logo" />
+          </div>
           <div className={styles.tools}>
             <SideTools />
           </div>

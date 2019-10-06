@@ -1,3 +1,10 @@
 .workspace {
   height: 100%;
 }
+
+.workspace>div {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,3 +1,30 @@
+.wrapper {
+  position: relative;
+  height: 100%;
+}
+
 .main {
   background-color: #222831;
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.main::-webkit-scrollbar,
+.main::-webkit-scrollbar-thumb {
+  overflow: visible;
+}
+
+.coverBar {
+  position: absolute;
+  background: #222831;
+  height: 100%;
+  top: 0;
+  right: 0;
+  width: 5px;
+  transition: all .5s;
+  opacity: 1;
+}
+
+.wrapper:hover .coverBar {
+  opacity: 0;
 }

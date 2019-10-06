@@ -1,5 +1,5 @@
 import React from "react";
-import "./SideTools.module.css";
+import style from "./SideTools.module.css";
 import { SideItem } from "./../SideItems/SideItems";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
@@ -20,14 +20,17 @@ const data = [
 
 export const SideTools = props => {
   return (
-    <div className="main">
-      {data.map((item, index) => {
-        return (
-          <DndProvider backend={HTML5Backend} key={index}>
-            <SideItem item={item} />
-          </DndProvider>
-        );
-      })}
+    <div className={style.wrapper}>
+      <div className={style.main}>
+        {data.map((item, index) => {
+          return (
+            <DndProvider backend={HTML5Backend} key={index}>
+              <SideItem item={item} />
+            </DndProvider>
+          );
+        })}
+      </div>
+      <div className={style.coverBar}></div>
     </div>
   );
 };

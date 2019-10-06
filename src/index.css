@@ -19,8 +19,25 @@ code {
     monospace;
 }
 
+.modal-header {
+  background-color: #222831;
+  border: none;
+}
+
+.modal-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title>div>i {
+  cursor: pointer;
+}
+
 .modal-body {
   background-color: var(--primary);
+  min-height: 150px;
 }
 
 .form-control {
@@ -38,7 +55,7 @@ code {
 }
 
 .modal-content {
-  background-color: black;
+  background-color: #222831;
 }
 
 .modal-footer {
@@ -49,7 +66,7 @@ code {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
