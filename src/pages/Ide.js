@@ -6,7 +6,7 @@ import Workspace from "./../components/Workspace/Workspace";
 import { DndProvider } from "react-dnd";
 
 const initState = {
-  moeCode: ""
+  moeCode: ".-Generated with VMS-."
 }
 
 export class Ide extends React.Component {
