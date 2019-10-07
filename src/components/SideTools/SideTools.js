@@ -8,14 +8,13 @@ import ComponentType from "../../utils/ComponentType";
 const data = [
   { id: ComponentType.IF, img: "/img/IF.png", title: "if" },
   { id: ComponentType.DECLARE, img: "/img/declare.png", title: "declare" },
-  { id: ComponentType.ASIGN, img: "/img/asign.png", title: "asign" },
+  { id: ComponentType.ASIGN, img: "/img/operation.png", title: "asign" },
   {
     id: ComponentType.ITERATION,
     img: "/img/iteration.png",
     title: "iteration"
   },
-  { id: ComponentType.INPUT, img: "/img/input.png", title: "input" },
-  { id: ComponentType.OUTPUT, img: "/img/output.png", title: "output" }
+  { id: ComponentType.IO, img: "/img/asign.png", title: "IO" },
 ];
 
 export const SideTools = props => {

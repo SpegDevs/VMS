@@ -1,6 +1,8 @@
 import React from "react";
-/* import style from './ActionItem.module.css'; */
+import './ActionItem.module.css';
 
 export const ActionItem = props => {
-  return <i className="material-icons">{props.name}</i>;
+  return <i className="material-icons" id={props.name} onClick={() => {
+    props.action(props.code)
+  }}>{props.name}</i>;
 };

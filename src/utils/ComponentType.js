@@ -3,6 +3,7 @@ export default {
   DECLARE: "DECLARE",
   ASIGN: "ASIGN",
   ITERATION: "ITERATION",
-  INPUT: "INPUT",
-  OUTPUT: "OUTPUT"
+  IO: "IO",
+  INPUT: "IN",
+  OUTPUT: "OUT",
 };
