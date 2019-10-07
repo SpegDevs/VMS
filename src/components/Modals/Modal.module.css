@@ -1,3 +1,7 @@
+span {
+  text-justify: justify;
+}
+
 .tooltip>i {
   transition: all .5s;
 }

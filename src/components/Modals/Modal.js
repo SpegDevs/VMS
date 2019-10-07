@@ -53,6 +53,7 @@ export const IfModal = props => {
 };
 
 const types = ["int", "dec", "str", "char", "bool"];
+const variableType = ["variable", "array"];
 
 export const DeclareModal = props => {
   return (
@@ -68,6 +69,25 @@ export const DeclareModal = props => {
         <h3>Declaration</h3>
         <div>
           <label htmlFor="declare">Enter a variable</label>
+          <Input
+            type="select"
+            id="declareVariable"
+            onChange={e => {
+              props.selectingArray(
+                e.target.options[e.target.selectedIndex].value === "variable"
+                  ? false
+                  : true
+              );
+            }}
+          >
+            {variableType.map((element, index) => {
+              return (
+                <option value={element} key={index}>
+                  {element}
+                </option>
+              );
+            })}
+          </Input>
           <Input type="select" id="declareType">
             {types.map((element, index) => {
               return (
@@ -77,6 +97,14 @@ export const DeclareModal = props => {
               );
             })}
           </Input>
+          {props.isSelectingArray && (
+            <Input
+              type="number"
+              id="arrayLength"
+              placeholder="Array size"
+              min="1"
+            />
+          )}
           <Input type="text" id="declare" />
         </div>
       </ModalBody>
