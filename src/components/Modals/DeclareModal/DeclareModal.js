@@ -104,7 +104,8 @@ export class DeclareModal extends React.Component {
                             let declaretion = "";
                             const type = e.options[e.selectedIndex].value;
                             if (this.state.isArray) {
-                                declaretion = `arr[${type}, ${document.querySelector("#arrayLength").value}] ${value}`
+                                console.log(`arr[${document.querySelector("#arrayLength").value}] ${type} ${value}`);
+                                declaretion = `arr[${document.querySelector("#arrayLength").value}] ${type} ${value}`
                             } else {
                                 declaretion = `${type} ${value}`
                             }

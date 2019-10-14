@@ -26,7 +26,7 @@ const download = (code) => {
 }
 
 const sendToBack = async (value) => {
-  const { data } = await axios.post("https://node-spegmoe.herokuapp.com/", { content: value })
+  const { data } = await axios.post("http://52.177.205.147:5000", { content: value })
   return data;
 }
 
@@ -49,7 +49,9 @@ const names = [{
 
 const initState = {
   isOpen: false,
-  code: ""
+  error: false,
+  code: "",
+  errorMsg: ""
 }
 
 export class Action extends React.Component {
@@ -57,13 +59,23 @@ export class Action extends React.Component {
     super(props);
     this.state = { ...initState };
     this.modal = this.modal.bind(this);
+    this.error = this.error.bind(this);
   }
 
   async modal() {
     const x = await sendToBack(this.props.code);
-    console.log("x", x)
+    let error, errorMsg, isOpen = false, code;
+    if (x.error.trim() !== "") {
+      error = true;
+      errorMsg = x.error
+    } else {
+      isOpen = true;
+      code = x.returnedCode;
+    }
     this.setState({
-      isOpen: true,
+      isOpen: isOpen,
+      error: error,
+      errorMsg: errorMsg,
       code: x.returnedCode
     })
   }
@@ -75,12 +87,25 @@ export class Action extends React.Component {
     })
   }
 
+  error() {
+    this.setState({
+      error: false,
+      errorMsg: ""
+    })
+  }
+
   render() {
     return <>
       <Modal isOpen={this.state.isOpen} toggle={this.modal}>
         <ModalBody>{this.state.code}</ModalBody>
         <ModalFooter><Button className={style.sucess} onClick={() => {
           this.toggle();
+        }}>Accept</Button></ModalFooter>
+      </Modal>
+      <Modal isOpen={this.state.error} toggle={this.error}>
+        <ModalBody>{this.state.errorMsg}</ModalBody>
+        <ModalFooter><Button className={style.sucess} onClick={() => {
+          this.error();
         }}>Accept</Button></ModalFooter>
       </Modal>
       <ul>
