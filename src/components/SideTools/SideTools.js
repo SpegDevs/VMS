@@ -1,36 +1,95 @@
-import React from "react";
-import style from "./SideTools.module.css";
-import { SideItem } from "./../SideItems/SideItems";
-import { DndProvider } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
-import ComponentType from "../../utils/ComponentType";
-
-const data = [
-
-  { id: ComponentType.DECLARE, img: "/img/declare.png", title: "declare" },
-  { id: ComponentType.ASIGN, img: "/img/operation.png", title: "asign" },
-  { id: ComponentType.IO, img: "/img/asign.png", title: "IO" },
-  { id: ComponentType.IF, img: "/img/IF.png", title: "if" },
-  {
-    id: ComponentType.ITERATION,
-    img: "/img/iteration.png",
-    title: "iteration"
-  },
+import React, { useState } from "react";
+import ItemTypes from "../../utils/ItemTypes";
+import { Container, Draggable } from "react-smooth-dnd";
+import {
+  placeholder,
+  logo,
+  side,
+  bar,
+  drop,
+  statements
+} from "./SideTools.module.scss";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
+import ReducerActionType from "../../utils/ReducerActionType";
+const items = [
+  { id: 0, type: ItemTypes.DECLARE },
+  { id: 1, type: ItemTypes.ASIGN },
+  { id: 2, type: ItemTypes.IF },
+  { id: 3, type: ItemTypes.LOPP },
+  { id: 4, type: ItemTypes.STATEMENT },
+  { id: 5, type: ItemTypes.INPUT },
+  { id: 6, type: ItemTypes.OUTPUT }
 ];
 
-export const SideTools = props => {
+const SideItem = ({ item }, ...props) => (
+  <div className={`${placeholder}`}>
+    <h3>{item.type}</h3>
+  </div>
+);
+
+const dropDownItems = ["Statements", "If inner Statements"];
+const groupType = {
+  [dropDownItems[0]]: ReducerActionType.DROP,
+  [[dropDownItems[1]]]: ReducerActionType.INNERDROP
+};
+
+export const SideTools = ({ dispatch }, ...props) => {
+  const [isOpen, toggle] = useState(false);
+  const [dropState, setDropState] = useState(dropDownItems[0]);
+  const [group, setGroup] = useState(groupType[dropDownItems[0]]);
+  console.log(group);
   return (
-    <div className={style.wrapper}>
-      <div className={style.main}>
-        {data.map((item, index) => {
-          return (
-            <DndProvider backend={HTML5Backend} key={index}>
-              <SideItem item={item} />
-            </DndProvider>
-          );
-        })}
+    <div className={side}>
+      <div className={logo}>
+        <img src="vms.png" alt="vaquita" />
       </div>
-      <div className={style.coverBar}></div>
+      <div className={bar}>
+        <div className={drop}>
+          <Dropdown isOpen={isOpen} toggle={() => toggle(!isOpen)}>
+            <DropdownToggle caret>{dropState}</DropdownToggle>
+            <DropdownMenu>
+              {dropDownItems.map((item, index) => {
+                return (
+                  <DropdownItem
+                    key={index}
+                    onClick={() => {
+                      setDropState(item);
+                      setGroup(groupType[item]);
+                    }}
+                  >
+                    {item}
+                  </DropdownItem>
+                );
+              })}
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+        <div className={statements}>
+          <Container
+            groupName={group}
+            behaviour="copy"
+            onDrop={dropResult =>
+              dispatch({ type: group, payload: dropResult })
+            }
+            getChildPayload={i => {
+              return { type: items[i].type };
+            }}
+          >
+            {items.map((item, index) => {
+              return (
+                <Draggable key={`xxx${item.id}`}>
+                  <SideItem item={item} />
+                </Draggable>
+              );
+            })}
+          </Container>
+        </div>
+      </div>
     </div>
   );
 };
