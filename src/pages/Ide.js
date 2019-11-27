@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useState, useReducer } from "react";
 import { SideTools } from "../components/SideTools/SideTools";
 import { main, workspace, functions } from "./Ide.module.css";
 import Workspace from "../components/Workspace/Workspace";
@@ -10,10 +10,14 @@ import {
 } from "../utils/Functions";
 import { Template } from "../utils/ItemTemplate";
 import ReducerActionType from "../utils/ReducerActionType";
+import ItemTypes from "../utils/ItemTypes";
+import { ModalWrapper } from "../components/Modal/Modal";
 
 const initState = {
   count: 0,
-  items: []
+  items: [],
+  isOpen: false,
+  object: {}
 };
 
 function reducer(state, action) {
@@ -26,6 +30,16 @@ function reducer(state, action) {
       return deleteItem(action.payload, state);
     case ReducerActionType.MODIFY:
       return edit(action.payload, state);
+    case ReducerActionType.DELETEALL:
+      return { items: [], count: state.count };
+    case ReducerActionType.INSERTFROMMODAL:
+      return insertFromModal(action.payload, state);
+    case ReducerActionType.INSERTFROMMODALONINNER:
+      return insertFromModalonInnerDrop(action.payload, state);
+    case ReducerActionType.CHANGEOPEN:
+      return { ...state, isOpen: !state.isOpen };
+    case ReducerActionType.CLOSEMODAL:
+      return { ...state, isOpen: false };
     default:
       break;
   }
@@ -39,7 +53,10 @@ function deleteItem(id, { items, count }) {
   };
 }
 
-function onInnerDrop(dropResult, { items, count }) {
+function insertFromModalonInnerDrop(
+  dropResult,
+  { items, count, isOpen, object }
+) {
   const { removedIndex, addedIndex, payload, parent } = dropResult;
   if (addedIndex !== null) {
     const newItems = [...items];
@@ -58,16 +75,30 @@ function onInnerDrop(dropResult, { items, count }) {
         newItems[element].content = result[0];
       }
     }
-    return { items: newItems, count: shouldUpdateCount ? count + 1 : count };
+    return {
+      items: newItems,
+      count: shouldUpdateCount ? count + 1 : count,
+      isOpen: false,
+      object
+    };
   }
-  return { items, count };
+  return { items, count, isOpen: false, object };
 }
 
-function onDrop(dropResult, { items, count }) {
-  const { removedIndex, addedIndex, payload } = dropResult;
-  console.log(dropResult);
+function onInnerDrop(dropResult, { items, count }) {
+  return {
+    items,
+    count,
+    object: dropResult,
+    isOpen: dropResult.payload.new ? true : false,
+    inner: true
+  };
+}
+
+function insertFromModal(dropResult, { items, count, isOpen, object }) {
+  const { removedIndex, addedIndex, payload, parent, template } = dropResult;
   const [newItems, shouldUpdateIndex] = insertElementIntoArray(
-    Template(payload),
+    template,
     removedIndex,
     addedIndex,
     items,
@@ -75,7 +106,18 @@ function onDrop(dropResult, { items, count }) {
   );
   return {
     items: newItems,
-    count: shouldUpdateIndex ? count + 1 : count
+    count: shouldUpdateIndex ? count + 1 : count,
+    isOpen: false,
+    object
+  };
+}
+
+function onDrop(dropResult, { items, count }) {
+  return {
+    items,
+    count,
+    object: dropResult,
+    isOpen: dropResult.payload.new ? true : false
   };
 }
 
@@ -85,16 +127,25 @@ function edit({ id, value }, { items, count }) {
 }
 
 export const Ide = () => {
-  /* const [moeCode, setMoeCode] = useState(".-Generated with VMS-.\n"); */
   const [state, dispatch] = useReducer(reducer, initState);
-  console.log(state);
   return (
-    <main className={main}>
-      <SideTools />
-      <div className={workspace}>
-        <Workspace items={state.items} dispatch={dispatch} />
-      </div>
-      <div className={functions}></div>
-    </main>
+    <>
+      <ModalWrapper
+        isOpen={state.isOpen}
+        toggle={() => {
+          dispatch({ type: ReducerActionType.CHANGEOPEN });
+        }}
+        dispatch={dispatch}
+        drop={state.object}
+        inner={state.inner}
+      />
+      <main className={main}>
+        <SideTools />
+        <div className={workspace}>
+          <Workspace items={state.items} dispatch={dispatch} />
+        </div>
+        <div className={functions}></div>
+      </main>
+    </>
   );
 };

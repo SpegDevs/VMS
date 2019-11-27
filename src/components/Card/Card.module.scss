@@ -30,9 +30,6 @@
 }
 
 .actions {
-  display: flex;
-  flex-direction: row;
-  flex-flow: row-reverse;
 
   i {
     margin: 0.3em 0.2em;
@@ -49,18 +46,23 @@
 }
 
 .header {
-  box-sizing: border-box;
-  width: 100%;
   padding: 0.5em;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 10% 70% 20%;
   height: 50px;
 
   h3 {
     margin: 0 auto;
     text-transform: capitalize;
+  }
+
+  input {
+    margin: 0 auto;
+  }
+
+  &>div {
+    display: flex;
+    justify-content: flex-end;
   }
 }
 

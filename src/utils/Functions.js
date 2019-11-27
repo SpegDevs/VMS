@@ -1,3 +1,5 @@
+import ItemTypes from "./ItemTypes";
+
 const insertNewValueFromNull = (element, to, array) => {
   array.splice(to, 0, element);
   return [array, true];
@@ -25,6 +27,7 @@ export const insertElementIntoNestedArray = (
   count
 ) => {
   if (element.id === id) {
+    console.log(element.elseContent);
     return insertElementIntoArray(
       elementToInsert,
       from,
@@ -54,7 +57,6 @@ export const insertElementIntoNestedArray = (
 
 export const removeElementFromNestedArray = (id, array) => {
   const arr = array.filter(element => {
-    console.log(element.id, id);
     if (element.content instanceof Array) {
       element.content = removeElementFromNestedArray(id, element.content);
     }
@@ -67,10 +69,47 @@ export const modifyFromNestedArray = (id, value, array) => {
   return array.map(element => {
     const newElement = { ...element };
     if (newElement.id === id) {
-      newElement.content = `${value}`;
+      if (
+        newElement.type === ItemTypes.IF ||
+        newElement.type === ItemTypes.LOOP
+      ) {
+        newElement.condition = `${value}`;
+      } else {
+        newElement.content = `${value}`;
+      }
     } else if (newElement.content instanceof Array) {
-      newElement.content = modifyFromNestedArray(id);
+      newElement.content = modifyFromNestedArray(id, value, [
+        ...newElement.content
+      ]);
     }
     return newElement;
   });
+};
+
+export const genereateCodeFromArray = array => {
+  return array.reduce((prev, current) => {
+    const { content, type } = current;
+    switch (type) {
+      case ItemTypes.IF:
+        return `${prev}if(${current.condition}){\n${genereateCodeFromArray(
+          content
+        )}}`;
+      case ItemTypes.ELSE:
+        return `${prev}else{\n${genereateCodeFromArray(content)}\n}`;
+      case ItemTypes.DECLARE:
+        const { isArray, variableType, arrayLength } = current;
+        const type = isArray
+          ? `arr[${variableType}, ${arrayLength}]`
+          : `${variableType}`;
+        return `${prev}${type} ${content};`;
+      case ItemTypes.ASIGN:
+        return `${prev}${content};`;
+      case ItemTypes.OUTPUT:
+        return `${prev}out(${content});\n`;
+      case ItemTypes.INPUT:
+        return `${prev}in(${content});\n`;
+      default:
+        return `${prev}${content}`;
+    }
+  }, "");
 };

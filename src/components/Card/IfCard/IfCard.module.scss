@@ -3,6 +3,7 @@
   width: 100%;
   padding: 0.1em;
   display: flex;
+  flex-direction: column;
 
   &>div {
     min-height: 100%;

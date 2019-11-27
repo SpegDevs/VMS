@@ -1,10 +1,12 @@
 import React from "react";
 import { ActionItem } from "./../ActionItem/ActionItem";
 import { actions } from "./Action.module.scss";
-import axios from "axios";
+import { useMutate } from "restful-react";
+import ReducerActionType from "../../utils/ReducerActionType";
+import { genereateCodeFromArray } from "../../utils/Functions";
 
-const downloadFile = code => {
-  download(code);
+const downloadFile = (dispatch, items) => {
+  download(`.-Generated with VMS-.\n${genereateCodeFromArray(items)}`);
 };
 
 const download = code => {
@@ -20,11 +22,12 @@ const download = code => {
   document.body.removeChild(element);
 };
 
-const sendToBack = async value => {
-  const { data } = await axios.post("https://node-spegmoe.herokuapp.com/", {
-    content: value
-  });
-  return data;
+const sendToBack = async (_, items) => {
+  /* return data; */
+};
+
+const deleteAll = dispatch => {
+  dispatch({ type: ReducerActionType.DELETEALL });
 };
 
 const names = [
@@ -38,17 +41,30 @@ const names = [
   },
   {
     icon: "delete",
-    action: "delete"
+    action: deleteAll
+  },
+  {
+    icon: "help",
+    action: "help"
   }
 ];
 
-export const Action = () => {
+export const Action = ({ items, dispatch }) => {
+  const { mutate: send, laoding } = useMutate({
+    
+  })
   return (
     <div className={actions}>
       <ul>
         {names.map(item => {
           return (
-            <ActionItem name={item.icon} action={item.action} key={item.icon} />
+            <ActionItem
+              name={item.icon}
+              action={() => {
+                item.action(dispatch, items);
+              }}
+              key={item.icon}
+            />
           );
         })}
       </ul>

@@ -1,22 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { CardWrapper, CardBounds } from "../Card/Card";
 import { Container, Draggable } from "react-smooth-dnd";
 import ItemTypes from "../../utils/ItemTypes";
 import { pane, workspace } from "./Workspace.module.scss";
 import { Action } from "../Action/Action";
 import ReducerActionType from "../../utils/ReducerActionType";
+import { ModalWrapper } from "../Modal/Modal";
 
 const Workspace = ({ items, dispatch }) => {
   return (
     <div className={pane}>
-      <Action />
+      <Action items={items} dispatch={dispatch} />
       <div className={workspace}>
         <CardBounds item={{ type: ItemTypes.START }} />
         <div className="container">
           <Container
             groupName={ReducerActionType.DROP}
             onDrop={dropResult =>
-              dispatch({ type: ReducerActionType.DROP, payload: dropResult })
+              dispatch({
+                type: ReducerActionType.DROP,
+                payload: dropResult
+              })
             }
             dropPlaceholder={{
               animationDuration: 150,

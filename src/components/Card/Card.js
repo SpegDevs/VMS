@@ -8,9 +8,10 @@ import {
   actions
 } from "./Card.module.scss";
 import ItemTypes from "../../utils/ItemTypes";
-import { IfCard } from "./IfCard/IfCard";
+import { IfAndElseCard } from "./IfCard/IfCard";
 import ReducerActionType from "../../utils/ReducerActionType";
 import { SimpleCard } from "./SimpleCard/SimpleCard";
+import { Input } from "reactstrap";
 
 export const CardBounds = ({ item }) => {
   return (
@@ -25,11 +26,24 @@ export const CardBounds = ({ item }) => {
   );
 };
 
-const CardLayout = ({ dispatch, item, children }) => {
+const CardLayout = ({ dispatch, item, children, condition }) => {
   return (
     <>
       <div className={card}>
         <div className={header}>
+          <h3>{item.type}</h3>
+          {condition && (
+            <Input
+              placeholder={item.placeholder}
+              value={item.condition}
+              onChange={e => {
+                dispatch({
+                  type: ReducerActionType.MODIFY,
+                  payload: { id: item.id, value: e.target.value }
+                });
+              }}
+            />
+          )}
           <div className={actions}>
             <i className="material-icons">content_copy</i>
             <i
@@ -41,7 +55,6 @@ const CardLayout = ({ dispatch, item, children }) => {
               delete
             </i>
           </div>
-          <h3>{item.type}</h3>
         </div>
         {children}
       </div>
@@ -55,8 +68,14 @@ export const CardWrapper = ({ dispatch, item }) => {
     switch (item.type) {
       case ItemTypes.IF:
         return (
+          <CardLayout dispatch={dispatch} item={item} condition>
+            <IfAndElseCard dispatch={dispatch} item={item} />
+          </CardLayout>
+        );
+      case ItemTypes.ELSE:
+        return (
           <CardLayout dispatch={dispatch} item={item}>
-            <IfCard dispatch={dispatch} item={item} />
+            <IfAndElseCard dispatch={dispatch} item={item} />
           </CardLayout>
         );
       case ItemTypes.ASIGN:
@@ -70,7 +89,7 @@ export const CardWrapper = ({ dispatch, item }) => {
           </CardLayout>
         );
       default:
-        break;
+        return null;
     }
   };
 

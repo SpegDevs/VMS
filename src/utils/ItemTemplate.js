@@ -4,7 +4,13 @@ const template = {
   [ItemTypes.IF]: {
     id: null,
     type: ItemTypes.IF,
+    placeholder: "Enter a condition",
     condition: "",
+    content: []
+  },
+  [ItemTypes.ELSE]: {
+    id: null,
+    type: ItemTypes.ELSE,
     content: []
   },
   [ItemTypes.STATEMENT]: {
@@ -35,6 +41,9 @@ const template = {
     id: null,
     type: ItemTypes.DECLARE,
     placeholder: "Enter a declaretion",
+    variableType: "",
+    isArray: false,
+    arrayLength: 0,
     content: ""
   }
 };

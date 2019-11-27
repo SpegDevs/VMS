@@ -20,10 +20,11 @@ const items = [
   { id: 0, type: ItemTypes.DECLARE },
   { id: 1, type: ItemTypes.ASIGN },
   { id: 2, type: ItemTypes.IF },
-  { id: 3, type: ItemTypes.LOPP },
-  { id: 4, type: ItemTypes.STATEMENT },
-  { id: 5, type: ItemTypes.INPUT },
-  { id: 6, type: ItemTypes.OUTPUT }
+  { id: 3, type: ItemTypes.ELSE },
+  { id: 4, type: ItemTypes.LOOP },
+  { id: 5, type: ItemTypes.STATEMENT },
+  { id: 6, type: ItemTypes.INPUT },
+  { id: 7, type: ItemTypes.OUTPUT }
 ];
 
 const SideItem = ({ item }, ...props) => (
@@ -32,7 +33,7 @@ const SideItem = ({ item }, ...props) => (
   </div>
 );
 
-const dropDownItems = ["Statements", "If inner Statements"];
+const dropDownItems = ["Statements", "Inner Statements"];
 const groupType = {
   [dropDownItems[0]]: ReducerActionType.DROP,
   [[dropDownItems[1]]]: ReducerActionType.INNERDROP
@@ -42,7 +43,6 @@ export const SideTools = ({ dispatch }, ...props) => {
   const [isOpen, toggle] = useState(false);
   const [dropState, setDropState] = useState(dropDownItems[0]);
   const [group, setGroup] = useState(groupType[dropDownItems[0]]);
-  console.log(group);
   return (
     <div className={side}>
       <div className={logo}>
@@ -77,7 +77,7 @@ export const SideTools = ({ dispatch }, ...props) => {
               dispatch({ type: group, payload: dropResult })
             }
             getChildPayload={i => {
-              return { type: items[i].type };
+              return { type: items[i].type, new: true };
             }}
           >
             {items.map((item, index) => {
