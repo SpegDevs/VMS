@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { CardWrapper, CardBounds } from "../Card/Card";
 import { Container, Draggable } from "react-smooth-dnd";
 import ItemTypes from "../../utils/ItemTypes";
 import { pane, workspace } from "./Workspace.module.scss";
 import { Action } from "../Action/Action";
 import ReducerActionType from "../../utils/ReducerActionType";
-import { ModalWrapper } from "../Modal/Modal";
 
 const Workspace = ({ items, dispatch }) => {
   return (
@@ -34,7 +33,7 @@ const Workspace = ({ items, dispatch }) => {
               return { type: items[i].type };
             }}
           >
-            {items.map((item, index) => {
+            {items.map(item => {
               return (
                 <Draggable key={item.id}>
                   <CardWrapper dispatch={dispatch} item={item} />
