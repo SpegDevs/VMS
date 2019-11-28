@@ -27,7 +27,7 @@ const sendToBack = async (dispatch, items, open, text) => {
   const dat = {
     content: `.-Generated with VMS-.\n${genereateCodeFromArray(items, 0)}`
   };
-  fetch("http://localhost:5000/", {
+  fetch("https://dei2.uca.edu.sv/spegmoe", {
     method: "POST",
     body: JSON.stringify(dat),
     headers: {
