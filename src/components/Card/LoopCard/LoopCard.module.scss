@@ -1,0 +1,15 @@
+.forClass {
+  display: flex;
+  flex-direction: row;
+
+  &>label {
+    margin: 0.4em 0.2em;
+  }
+}
+
+.conditionInput {
+  &>input {
+    width: 70%;
+    margin: 0 auto;
+  }
+}

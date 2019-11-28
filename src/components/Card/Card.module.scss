@@ -45,6 +45,10 @@
   }
 }
 
+.headerWithTwo {
+  grid-template-columns: 50% 50% !important;
+}
+
 .header {
   padding: 0.5em;
   display: grid;

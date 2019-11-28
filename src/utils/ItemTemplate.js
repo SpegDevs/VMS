@@ -13,24 +13,6 @@ const template = {
     type: ItemTypes.ELSE,
     content: []
   },
-  [ItemTypes.STATEMENT]: {
-    id: null,
-    type: ItemTypes.STATEMENT,
-    placeholder: "Enter a statement",
-    content: ""
-  },
-  [ItemTypes.INPUT]: {
-    id: null,
-    type: ItemTypes.INPUT,
-    placeholder: "Enter an input",
-    content: ""
-  },
-  [ItemTypes.OUTPUT]: {
-    id: null,
-    type: ItemTypes.OUTPUT,
-    placeholder: "Enter an output",
-    content: ""
-  },
   [ItemTypes.ASIGN]: {
     id: null,
     type: ItemTypes.ASIGN,
@@ -44,6 +26,31 @@ const template = {
     variableType: "",
     isArray: false,
     arrayLength: 0,
+    isFunction: false,
+    functionType: "",
+    params: "",
+    content: ""
+  },
+  [ItemTypes.LOOP]: {
+    id: null,
+    type: ItemTypes.LOOP,
+    loopType: "",
+    placeholder: "Enter a declaretion",
+    init: "",
+    condition: "",
+    increment: "",
+    content: []
+  },
+  [ItemTypes.INPUT]: {
+    id: null,
+    type: ItemTypes.INPUT,
+    placeholder: "Enter an input",
+    content: ""
+  },
+  [ItemTypes.OUTPUT]: {
+    id: null,
+    type: ItemTypes.OUTPUT,
+    placeholder: "Enter an output",
     content: ""
   }
 };

@@ -5,6 +5,7 @@ import {
   arrow,
   wrapper,
   header,
+  headerWithTwo,
   actions
 } from "./Card.module.scss";
 import ItemTypes from "../../utils/ItemTypes";
@@ -12,6 +13,8 @@ import { IfAndElseCard } from "./IfCard/IfCard";
 import ReducerActionType from "../../utils/ReducerActionType";
 import { SimpleCard } from "./SimpleCard/SimpleCard";
 import { Input } from "reactstrap";
+import { LoopCard } from "./LoopCard/LoopCard";
+import { DeclareCard } from "./DeclareCard/DeclareCard";
 
 export const CardBounds = ({ item }) => {
   return (
@@ -30,8 +33,14 @@ const CardLayout = ({ dispatch, item, children, condition }) => {
   return (
     <>
       <div className={card}>
-        <div className={header}>
-          <h3>{item.type}</h3>
+        <div
+          className={`${header} ${
+            item.type === ItemTypes.LOOP ? headerWithTwo : ""
+          }`}
+        >
+          <h3>
+            {item.type} {item.type === ItemTypes.LOOP ? item.loopType : null}
+          </h3>
           {condition && (
             <Input
               placeholder={item.placeholder}
@@ -45,12 +54,14 @@ const CardLayout = ({ dispatch, item, children, condition }) => {
             />
           )}
           <div className={actions}>
-            <i className="material-icons">content_copy</i>
             <i
               className="material-icons"
-              onClick={() =>
-                dispatch({ type: ReducerActionType.DELETE, payload: item.id })
-              }
+              onClick={() => {
+                dispatch({
+                  type: ReducerActionType.DELETE,
+                  payload: item.id
+                });
+              }}
             >
               delete
             </i>
@@ -78,8 +89,19 @@ export const CardWrapper = ({ dispatch, item }) => {
             <IfAndElseCard dispatch={dispatch} item={item} />
           </CardLayout>
         );
-      case ItemTypes.ASIGN:
+      case ItemTypes.LOOP:
+        return (
+          <CardLayout dispatch={dispatch} item={item}>
+            <LoopCard item={item} dispatch={dispatch} />
+          </CardLayout>
+        );
       case ItemTypes.DECLARE:
+        return (
+          <CardLayout dispatch={dispatch} item={item}>
+            <DeclareCard item={item} dispatch={dispatch} />
+          </CardLayout>
+        );
+      case ItemTypes.ASIGN:
       case ItemTypes.INPUT:
       case ItemTypes.OUTPUT:
       case ItemTypes.STATEMENT:

@@ -6,7 +6,7 @@ import ReducerActionType from "../../utils/ReducerActionType";
 import { genereateCodeFromArray } from "../../utils/Functions";
 
 const downloadFile = (dispatch, items) => {
-  download(`.-Generated with VMS-.\n${genereateCodeFromArray(items)}`);
+  download(`.-Generated with VMS-.\n${genereateCodeFromArray(items, 0)}`);
 };
 
 const download = code => {

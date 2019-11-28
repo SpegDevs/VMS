@@ -22,12 +22,11 @@ const items = [
   { id: 2, type: ItemTypes.IF },
   { id: 3, type: ItemTypes.ELSE },
   { id: 4, type: ItemTypes.LOOP },
-  { id: 5, type: ItemTypes.STATEMENT },
-  { id: 6, type: ItemTypes.INPUT },
-  { id: 7, type: ItemTypes.OUTPUT }
+  { id: 5, type: ItemTypes.INPUT },
+  { id: 6, type: ItemTypes.OUTPUT }
 ];
 
-const SideItem = ({ item }, ...props) => (
+export const SideItem = ({ item }, ...props) => (
   <div className={`${placeholder}`}>
     <h3>{item.type}</h3>
   </div>
