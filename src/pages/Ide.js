@@ -11,7 +11,6 @@ import {
 import { Template } from "../utils/ItemTemplate";
 import ReducerActionType from "../utils/ReducerActionType";
 import { ModalWrapper } from "../components/Modal/Modal";
-import { SideFunction } from "../components/SideFunction/SideFunction";
 
 const initState = {
   count: 0,
