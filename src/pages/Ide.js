@@ -57,7 +57,6 @@ function deleteItem(id, state) {
 }
 
 function insertFromModalonInnerDrop(dropResult, state) {
-  console.log(state, dropResult);
   const { items, count } = state;
   const { removedIndex, addedIndex, payload, parent } = dropResult;
   if (addedIndex !== null) {

@@ -39,8 +39,6 @@ const Content = props => {
       return <LoopContent />;
     case ItemTypes.OUTPUT:
       return <OutputContent />;
-    case ItemTypes.INPUT:
-      return <InputContent />;
     default:
       return null;
   }
@@ -164,21 +162,6 @@ const OutputContent = () => {
         <div className={centerBody}>
           <div>
             <Input type="text" id="output" placeholder="Ouput"></Input>
-          </div>
-        </div>
-      </ModalBody>
-    </>
-  );
-};
-
-const InputContent = () => {
-  return (
-    <>
-      <Header type={ItemTypes.INPUT} />
-      <ModalBody>
-        <div className={centerBody}>
-          <div>
-            <Input type="text" id="input" placeholder="Input"></Input>
           </div>
         </div>
       </ModalBody>
@@ -371,9 +354,6 @@ export const ModalWrapper = props => {
                 break;
               case ItemTypes.OUTPUT:
                 template.content = document.querySelector("#output").value;
-                break;
-              case ItemTypes.INPUT:
-                template.content = document.querySelector("#input").value;
                 break;
               default:
                 break;

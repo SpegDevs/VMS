@@ -129,8 +129,6 @@ export const genereateCodeFromArray = (array, tabCount) => {
         return `${prev}${tabs}${content};\n`;
       case ItemTypes.OUTPUT:
         return `${prev}${tabs}out(${content});\n`;
-      case ItemTypes.INPUT:
-        return `${prev}${tabs}in(${content});\n`;
       case ItemTypes.LOOP:
         switch (current.loopType) {
           case "for":

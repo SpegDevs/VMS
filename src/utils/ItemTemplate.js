@@ -41,12 +41,6 @@ const template = {
     increment: "",
     content: []
   },
-  [ItemTypes.INPUT]: {
-    id: null,
-    type: ItemTypes.INPUT,
-    placeholder: "Enter an input",
-    content: ""
-  },
   [ItemTypes.OUTPUT]: {
     id: null,
     type: ItemTypes.OUTPUT,

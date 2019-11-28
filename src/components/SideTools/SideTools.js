@@ -22,7 +22,6 @@ const items = [
   { id: 2, type: ItemTypes.IF },
   { id: 3, type: ItemTypes.ELSE },
   { id: 4, type: ItemTypes.LOOP },
-  { id: 5, type: ItemTypes.INPUT },
   { id: 6, type: ItemTypes.OUTPUT }
 ];
 

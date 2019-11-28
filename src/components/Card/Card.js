@@ -102,7 +102,6 @@ export const CardWrapper = ({ dispatch, item }) => {
           </CardLayout>
         );
       case ItemTypes.ASIGN:
-      case ItemTypes.INPUT:
       case ItemTypes.OUTPUT:
       case ItemTypes.STATEMENT:
         return (
