@@ -26,9 +26,6 @@ const template = {
     variableType: "",
     isArray: false,
     arrayLength: 0,
-    isFunction: false,
-    functionType: "",
-    params: "",
     content: ""
   },
   [ItemTypes.LOOP]: {

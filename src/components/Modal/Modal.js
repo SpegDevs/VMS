@@ -191,7 +191,6 @@ const DeclareContent = () => {
   const variableType = ["variable", "array"];
   const [isArray, setIsArray] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [functionSelected, setFunctionSelected] = useState(0);
   return (
     <>
       <Header type={ItemTypes.DECLARE} />
@@ -234,50 +233,6 @@ const DeclareContent = () => {
             />
           )}
           <Input type="text" id="declare" />
-          <div className={functionArea}>
-            <div>
-              <label htmlFor="function">
-                Asign a function value to your variable?
-              </label>
-              <label className={switchButton}>
-                <input
-                  type="checkbox"
-                  className={inputC}
-                  id="function"
-                  onChange={({ target }) => {
-                    setChecked(target.checked);
-                  }}
-                />
-                <span className={`${slider} ${round}`} />
-              </label>
-            </div>
-            {checked && !isArray && (
-              <div className={functionSelection}>
-                <Input
-                  type="select"
-                  id="functionType"
-                  onChange={({ target }) => {
-                    setFunctionSelected(target.selectedIndex);
-                  }}
-                >
-                  {defaultFunction.map((element, index) => {
-                    return (
-                      <option value={element.name} key={index}>
-                        {element.name}
-                      </option>
-                    );
-                  })}
-                </Input>
-                <Input type="text" id="params" placeholder="Function params" />
-                <div className={tooltip}>
-                  <i className="material-icons">info_outline</i>
-                  <span className={tooltipText}>
-                    Enter {defaultFunction[functionSelected].params} params
-                  </span>
-                </div>
-              </div>
-            )}
-          </div>
         </div>
       </ModalBody>
     </>
@@ -312,17 +267,6 @@ export const ModalWrapper = props => {
                   "#declareVariable"
                 );
                 const content = document.querySelector("#declare");
-                template.isFunction = document.querySelector(
-                  "#function"
-                ).checked;
-                if (template.isFunction) {
-                  template.functionType = document.querySelector(
-                    "#functionType"
-                  ).options[
-                    document.querySelector("#functionType").selectedIndex
-                  ].value;
-                  template.params = document.querySelector("#params").value;
-                }
                 const type = document.querySelector("#declareType");
                 const arrayLength = document.querySelector("#arrayLength");
                 template.content = `${content.value}`;

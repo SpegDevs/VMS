@@ -6,17 +6,6 @@ import { content } from "./DeclareCard.module.scss";
 export const DeclareCard = ({ item, dispatch }) => {
   return (
     <div className={content}>
-      <div>
-        <h4>Variable info:</h4>
-        <p>
-          Type = {item.variableType}
-          <br />
-          Is an array = {item.isArray ? "Yes" : "No"}
-          {item.isArray ? `Array size = ${item.arrayLength}${(<br />)}` : null}
-          <br />
-          Value = {item.functionType}({item.params})
-        </p>
-      </div>
       <Input
         placeholder={item.placeholder}
         value={item.content}

@@ -10,5 +10,7 @@ export default {
   CHANGEOPEN: "change-open",
   CLOSEMODAL: "close-modal",
   COPYOBJECT: "copy-object",
-  DELETECOPIEDOBJECT: "delete-copied-object"
+  DELETECOPIEDOBJECT: "delete-copied-object",
+  RESPONSE: "response",
+  CLOSERESPONSE: "response"
 };

@@ -11,12 +11,15 @@ import {
 import { Template } from "../utils/ItemTemplate";
 import ReducerActionType from "../utils/ReducerActionType";
 import { ModalWrapper } from "../components/Modal/Modal";
+import { ModalFetch } from "../components/Modal/ModalFetch/ModalFetch";
 
 const initState = {
   count: 0,
   items: [],
   isOpen: false,
-  object: {}
+  object: {},
+  responseOpen: false,
+  responseText: ""
 };
 
 function reducer(state, action) {
@@ -41,6 +44,8 @@ function reducer(state, action) {
       return { ...state, isOpen: false };
     case ReducerActionType.DELETECOPIEDOBJECT:
       return { ...state, copyObject: {} };
+    case ReducerActionType.CLOSERESPONSE:
+      return { ...state, responseOpen: false };
     default:
       break;
   }
@@ -131,6 +136,7 @@ function edit(drop, state) {
 
 export const Ide = () => {
   const [state, dispatch] = useReducer(reducer, initState);
+  console.log(state);
   return (
     <>
       <ModalWrapper
@@ -142,6 +148,7 @@ export const Ide = () => {
         drop={state.object}
         inner={state.inner}
       />
+      
       <main className={main}>
         <SideTools />
         <div className={workspace}>

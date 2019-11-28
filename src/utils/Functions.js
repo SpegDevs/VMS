@@ -110,25 +110,15 @@ export const genereateCodeFromArray = (array, tabCount) => {
           tabCount + 1
         )}\n}`;
       case ItemTypes.DECLARE:
-        const {
-          isArray,
-          variableType,
-          arrayLength,
-          isFunction,
-          functionType,
-          params
-        } = current;
+        const { isArray, variableType, arrayLength } = current;
         const type = isArray
           ? `arr[${variableType}, ${arrayLength}]`
           : `${variableType}`;
-        const Content = isFunction
-          ? `${content}=call (${functionType}(${params}))`
-          : content;
-        return `${prev}${tabs}${type} ${Content};\n`;
+        return `${prev}${tabs}${type} ${content};\n`;
       case ItemTypes.ASIGN:
         return `${prev}${tabs}${content};\n`;
       case ItemTypes.OUTPUT:
-        return `${prev}${tabs}out(${content});\n`;
+        return `${prev}${tabs}call (out(${content}));\n`;
       case ItemTypes.LOOP:
         switch (current.loopType) {
           case "for":

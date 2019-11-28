@@ -5,7 +5,7 @@ import { RestfulProvider } from "restful-react";
 
 export const App = () => {
   return (
-    <RestfulProvider base="">
+    <RestfulProvider base="http://localhost:5000">
       <Router>
         <Switch>
           <Route path="/">
